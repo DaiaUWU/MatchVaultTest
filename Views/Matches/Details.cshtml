@@ -1,0 +1,135 @@
+
+@model MatchVault.Models.Match
+
+@{
+    ViewData["Title"] = Model.Title;
+}
+
+<div class="container py-5">
+
+    <a asp-controller="Matches"
+       asp-action="Index"
+       class="btn btn-outline-secondary mb-4">
+        ← Back to Matches
+    </a>
+
+    <div class="card bg-dark text-white border-secondary shadow-lg">
+        <div class="row g-0">
+
+            @if (!string.IsNullOrEmpty(Model.ImageUrl))
+            {
+                <div class="col-md-4">
+                    <img src="@Model.ImageUrl"
+                         alt="@Model.Title"
+                         class="img-fluid rounded-start w-100"
+                         style="object-fit:cover;" />
+                </div>
+            }
+
+            <div class="col-md-8">
+                <div class="card-body p-4">
+
+                    <h1 class="fw-bold mb-3">
+                        @Model.Title
+                    </h1>
+
+                    <h4 class="text-danger fw-bold mb-4">
+                        @Model.Wrestler1 vs. @Model.Wrestler2
+                    </h4>
+
+                    <hr class="border-secondary" />
+
+                    <p>
+                        <strong>Promotion:</strong>
+                        @Model.Promotion
+                    </p>
+
+                    <p>
+                        <strong>Event:</strong>
+                        @Model.Event
+                    </p>
+
+                    <p>
+                        <strong>Match Date:</strong>
+                        @Model.MatchDate.ToString("MMMM dd, yyyy")
+                    </p>
+
+                    @if (!string.IsNullOrEmpty(Model.MatchType))
+                    {
+                        <p>
+                            <strong>Match Type:</strong>
+                            @Model.MatchType
+                        </p>
+                    }
+
+                    @if (!string.IsNullOrEmpty(Model.Winner))
+                    {
+                        <p>
+                            <strong>Winner:</strong>
+                            <span class="text-success">
+                                @Model.Winner
+                            </span>
+                        </p>
+                    }
+
+                    @if (Model.DurationMinutes.HasValue)
+                    {
+                        <p>
+                            <strong>Duration:</strong>
+                            @Model.DurationMinutes minutes
+                        </p>
+                    }
+
+                    @if (Model.Rating.HasValue)
+                    {
+                        <h4 class="text-warning fw-bold mt-4">
+                            ★ @Model.Rating.Value.ToString("0.0") / 10
+                        </h4>
+                    }
+
+                    @if (!string.IsNullOrEmpty(Model.Description))
+                    {
+                        <h4 class="mt-4">
+                            About This Match
+                        </h4>
+
+                        <p class="text-secondary">
+                            @Model.Description
+                        </p>
+                    }
+
+                    <!-- ACTION BUTTONS -->
+                    <div class="d-flex flex-wrap gap-2 mt-4">
+
+                        <a asp-controller="Matches"
+                           asp-action="Edit"
+                           asp-route-id="@Model.Id"
+                           class="btn btn-outline-light">
+                            Edit Match
+                        </a>
+
+                        <a asp-controller="Matches"
+                           asp-action="Delete"
+                           asp-route-id="@Model.Id"
+                           class="btn btn-outline-danger">
+                            Delete Match
+                        </a>
+
+                        @if (Model.EventId.HasValue)
+                        {
+                            <a asp-controller="Events"
+                               asp-action="Details"
+                               asp-route-id="@Model.EventId"
+                               class="btn btn-outline-danger">
+                                View Wrestling Event
+                            </a>
+                        }
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

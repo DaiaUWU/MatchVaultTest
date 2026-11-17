@@ -1,0 +1,252 @@
+
+@model MatchVault.Models.Event
+
+@{
+    ViewData["Title"] = Model.Name;
+
+    var eventMatches = ViewBag.EventMatches as List<MatchVault.Models.Match>
+        ?? new List<MatchVault.Models.Match>();
+}
+
+<div class="container py-5">
+
+    <a asp-controller="Events"
+       asp-action="Index"
+       class="btn btn-outline-secondary mb-4">
+        ← Back to Events
+    </a>
+
+    <!-- EVENT DETAILS -->
+    <div class="card bg-dark text-white border-secondary shadow-lg overflow-hidden">
+        <div class="row g-0">
+
+            <!-- EVENT POSTER -->
+            <div class="col-md-4">
+                <div class="position-relative bg-black h-100"
+                     style="min-height: 380px;">
+
+                    <div class="position-absolute top-0 start-0 w-100 h-100
+                                d-flex flex-column align-items-center
+                                justify-content-center text-secondary"
+                         style="background: linear-gradient(135deg, #25252b, #101014);">
+                        <span style="font-size: 55px;">★</span>
+                        <span class="fw-bold">MATCHVAULT</span>
+                    </div>
+
+                    @if (!string.IsNullOrWhiteSpace(Model.ImageUrl))
+                    {
+                        <img src="@Model.ImageUrl"
+                             alt="@Model.Name"
+                             loading="lazy"
+                             onerror="this.style.display='none'"
+                             class="position-absolute top-0 start-0 w-100 h-100"
+                             style="object-fit: cover;" />
+                    }
+                </div>
+            </div>
+
+            <!-- EVENT INFORMATION -->
+            <div class="col-md-8">
+                <div class="card-body p-4 p-lg-5">
+
+                    <h1 class="fw-bold mb-3">
+                        @Model.Name
+                    </h1>
+
+                    @if (!string.IsNullOrWhiteSpace(Model.Promotion))
+                    {
+                        <h4 class="text-danger fw-bold">
+                            @Model.Promotion
+                        </h4>
+                    }
+
+                    <hr class="border-secondary my-4" />
+
+                    <p>
+                        <strong>Event Date:</strong>
+                        @Model.EventDate.ToString("MMMM dd, yyyy")
+                    </p>
+
+                    @if (!string.IsNullOrWhiteSpace(Model.Venue))
+                    {
+                        <p>
+                            <strong>Venue:</strong>
+                            @Model.Venue
+                        </p>
+                    }
+
+                    @if (!string.IsNullOrWhiteSpace(Model.Location))
+                    {
+                        <p>
+                            <strong>Location:</strong>
+                            @Model.Location
+                        </p>
+                    }
+
+                    @if (!string.IsNullOrWhiteSpace(Model.Description))
+                    {
+                        <h4 class="mt-4">About This Event</h4>
+
+                        <p class="text-secondary">
+                            @Model.Description
+                        </p>
+                    }
+
+                    <div class="mt-4 d-flex flex-wrap gap-2">
+                        <a asp-controller="Events"
+                           asp-action="Edit"
+                           asp-route-id="@Model.Id"
+                           class="btn btn-outline-light">
+                            Edit Event
+                        </a>
+
+                        <a asp-controller="Events"
+                           asp-action="Delete"
+                           asp-route-id="@Model.Id"
+                           class="btn btn-outline-danger">
+                            Delete Event
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- MATCH CARD -->
+    <div class="mt-5">
+
+        <div class="d-flex justify-content-between align-items-center mb-4 gap-3 flex-wrap">
+            <div>
+                <h2 class="fw-bold mb-1 text-white">
+                    Match Card
+                </h2>
+
+                <p class="text-secondary mb-0">
+                    Matches from @Model.Name
+                </p>
+            </div>
+
+            <a asp-controller="Matches"
+               asp-action="Create"
+               asp-route-eventId="@Model.Id"
+               class="btn btn-danger">
+                + Add Match
+            </a>
+        </div>
+
+        @if (eventMatches.Any())
+        {
+            <div class="row g-4">
+
+                @foreach (var match in eventMatches)
+                {
+                    <div class="col-md-6">
+
+                        <div class="card bg-dark text-white border-secondary h-100 shadow-sm overflow-hidden">
+
+                            <!-- MATCH IMAGE -->
+                            <div class="position-relative bg-black"
+                                 style="height: 240px;">
+
+                                <div class="position-absolute top-0 start-0 w-100 h-100
+                                            d-flex flex-column align-items-center
+                                            justify-content-center text-secondary"
+                                     style="background: linear-gradient(135deg, #25252b, #101014);">
+                                    <span style="font-size: 45px;">★</span>
+                                    <span class="fw-bold">MATCHVAULT</span>
+                                </div>
+
+                                @if (!string.IsNullOrWhiteSpace(match.ImageUrl))
+                                {
+                                    <img src="@match.ImageUrl"
+                                         alt="@match.Title"
+                                         loading="lazy"
+                                         onerror="this.style.display='none'"
+                                         class="position-relative w-100 h-100"
+                                         style="object-fit: cover;" />
+                                }
+                            </div>
+
+                            <!-- MATCH INFORMATION -->
+                            <div class="card-body p-4 d-flex flex-column">
+
+                                <h4 class="fw-bold mb-3">
+                                    @match.Title
+                                </h4>
+
+                                @if (!string.Equals(
+                                    match.Title?.Trim(),
+                                    $"{match.Wrestler1} vs. {match.Wrestler2}",
+                                    StringComparison.OrdinalIgnoreCase))
+                                {
+                                    <p class="text-danger fw-bold">
+                                        @match.Wrestler1
+                                        <span class="text-white">vs.</span>
+                                        @match.Wrestler2
+                                    </p>
+                                }
+
+                                @if (!string.IsNullOrWhiteSpace(match.MatchType))
+                                {
+                                    <p class="text-secondary">
+                                        <strong>Match Type:</strong>
+                                        @match.MatchType
+                                    </p>
+                                }
+
+                                @if (!string.IsNullOrWhiteSpace(match.Winner))
+                                {
+                                    <p>
+                                        <strong>Winner:</strong>
+                                        <span class="text-success">
+                                            @match.Winner
+                                        </span>
+                                    </p>
+                                }
+
+                                @if (match.DurationMinutes.HasValue)
+                                {
+                                    <p class="text-secondary">
+                                        <strong>Duration:</strong>
+                                        @match.DurationMinutes.Value minutes
+                                    </p>
+                                }
+
+                                @if (match.Rating.HasValue)
+                                {
+                                    <p class="fw-bold text-warning">
+                                        ★ @match.Rating.Value.ToString("0.0") / 10
+                                    </p>
+                                }
+
+                                <div class="mt-auto pt-2">
+                                    <a asp-controller="Matches"
+                                       asp-action="Details"
+                                       asp-route-id="@match.Id"
+                                       class="btn btn-outline-danger">
+                                        View Match
+                                    </a>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            </div>
+        }
+        else
+        {
+            <div class="card bg-dark border-secondary text-center p-5">
+                <h4 class="text-white">No matches yet</h4>
+                <p class="text-secondary mb-0">
+                    Add the first match to this event.
+                </p>
+            </div>
+        }
+
+    </div>
+
+</div>

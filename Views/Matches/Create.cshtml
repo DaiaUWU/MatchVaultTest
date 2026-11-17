@@ -1,0 +1,136 @@
+
+@model MatchVault.Models.Match
+
+@{
+    ViewData["Title"] = "Add Match";
+}
+
+<div class="container py-5" style="max-width: 1100px;">
+
+    <div class="mb-4">
+        <h1 class="fw-bold text-white">Add Wrestling Match</h1>
+        <p class="text-secondary">
+            Add a new wrestling match to MatchVault.
+        </p>
+    </div>
+
+    <div class="card text-white p-4"
+         style="background:#1b1e28; border:1px solid #414553; border-radius:15px;">
+
+        <form asp-controller="Matches" asp-action="Create" method="post">
+            @Html.AntiForgeryToken()
+
+            <div asp-validation-summary="All"
+                 class="text-danger mb-3"></div>
+
+            <div class="mb-3">
+                <label asp-for="Title" class="form-label"></label>
+                <input asp-for="Title" class="form-control"
+                       placeholder="e.g. Cody Rhodes vs. Roman Reigns" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label asp-for="Wrestler1" class="form-label"></label>
+                    <input asp-for="Wrestler1" class="form-control"
+                           placeholder="Cody Rhodes" />
+                    <span asp-validation-for="Wrestler1" class="text-danger"></span>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label asp-for="Wrestler2" class="form-label"></label>
+                    <input asp-for="Wrestler2" class="form-control"
+                           placeholder="Roman Reigns" />
+                    <span asp-validation-for="Wrestler2" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="EventId" class="form-label">
+                    Wrestling Event
+                </label>
+                <select asp-for="EventId"
+                        asp-items="ViewBag.Events"
+                        class="form-select">
+                    <option value="">Select Event</option>
+                </select>
+                <span asp-validation-for="EventId" class="text-danger"></span>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label asp-for="Promotion" class="form-label"></label>
+                    <input asp-for="Promotion" class="form-control"
+                           placeholder="WWE" />
+                    <span asp-validation-for="Promotion" class="text-danger"></span>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label asp-for="MatchDate" class="form-label"></label>
+                    <input asp-for="MatchDate" type="date"
+                           class="form-control" />
+                    <span asp-validation-for="MatchDate" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="MatchType" class="form-label"></label>
+                <input asp-for="MatchType" class="form-control"
+                       placeholder="e.g. Bloodline Rules" />
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Winner" class="form-label"></label>
+                <input asp-for="Winner" class="form-control"
+                       placeholder="e.g. Cody Rhodes" />
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label asp-for="DurationMinutes" class="form-label"></label>
+                    <input asp-for="DurationMinutes" type="number"
+                           min="0" class="form-control" />
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label asp-for="Rating" class="form-label">
+                        Rating (0–10)
+                    </label>
+                    <input asp-for="Rating" type="number"
+                           min="0" max="10" step="0.1"
+                           class="form-control" />
+                    <span asp-validation-for="Rating" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="ImageUrl" class="form-label">
+                    Match Image URL
+                </label>
+                <input asp-for="ImageUrl" class="form-control"
+                       placeholder="https://example.com/match.jpg" />
+            </div>
+
+            <div class="mb-4">
+                <label asp-for="Description" class="form-label"></label>
+                <textarea asp-for="Description"
+                          class="form-control" rows="4"
+                          placeholder="Describe the match..."></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-danger px-4">
+                Save Match
+            </button>
+
+            <a asp-controller="Events" asp-action="Index"
+               class="btn btn-outline-light ms-2">
+                Cancel
+            </a>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

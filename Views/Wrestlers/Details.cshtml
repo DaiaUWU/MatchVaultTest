@@ -1,0 +1,88 @@
+
+@model MatchVault.Models.Wrestler
+
+@{
+    ViewData["Title"] = Model.Name;
+}
+
+<div class="container py-5">
+
+    <a asp-controller="Wrestlers"
+       asp-action="Index"
+       class="btn btn-outline-secondary mb-4">
+        ← Back to Wrestlers
+    </a>
+
+    <div class="card bg-dark text-white border-secondary shadow-lg">
+        <div class="row g-0">
+
+            @if (!string.IsNullOrWhiteSpace(Model.ImageUrl))
+            {
+                <div class="col-md-4">
+                    <img src="@Model.ImageUrl"
+                         alt="@Model.Name"
+                         class="img-fluid rounded-start w-100"
+                         style="max-height: 500px; object-fit: cover;" />
+                </div>
+            }
+
+            <div class="col-md-8">
+                <div class="card-body p-4">
+
+                    <h1 class="fw-bold mb-3">
+                        @Model.Name
+                    </h1>
+
+                    @if (!string.IsNullOrWhiteSpace(Model.Promotion))
+                    {
+                        <h4 class="text-danger fw-bold mb-4">
+                            @Model.Promotion
+                        </h4>
+                    }
+
+                    <hr class="border-secondary" />
+
+                    <p>
+                        <strong>Country:</strong>
+                        @(Model.Country ?? "Not specified")
+                    </p>
+
+                    <p>
+                        <strong>Debut Date:</strong>
+                        @(Model.DebutDate.HasValue
+                            ? Model.DebutDate.Value.ToString("MMMM dd, yyyy")
+                            : "Not specified")
+                    </p>
+
+                    <h4 class="mt-4">Biography</h4>
+
+                    <p class="text-secondary">
+                        @(string.IsNullOrWhiteSpace(Model.Biography)
+                            ? "No biography available."
+                            : Model.Biography)
+                    </p>
+
+                    <div class="mt-4 d-flex gap-2">
+
+                        <a asp-controller="Wrestlers"
+                           asp-action="Edit"
+                           asp-route-id="@Model.Id"
+                           class="btn btn-outline-light">
+                            Edit Wrestler
+                        </a>
+
+                        <a asp-controller="Wrestlers"
+                           asp-action="Delete"
+                           asp-route-id="@Model.Id"
+                           class="btn btn-outline-danger">
+                            Delete Wrestler
+                        </a>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

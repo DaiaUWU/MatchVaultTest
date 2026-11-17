@@ -1,0 +1,219 @@
+﻿
+@{
+    ViewData["Title"] = "Home";
+}
+
+<!-- HERO SECTION -->
+<section class="text-center py-5">
+
+    <h1 class="display-3 fw-bold">
+        Welcome to <span class="text-danger">MatchVault</span>
+    </h1>
+
+    <p class="lead text-secondary mt-3">
+        Discover legendary wrestling matches,
+        explore iconic events, and build your ultimate
+        wrestling collection.
+    </p>
+
+    <div class="mt-4">
+        <a asp-controller="Matches"
+           asp-action="Index"
+           class="btn btn-danger btn-lg px-4">
+            Explore Matches
+        </a>
+    </div>
+
+</section>
+
+
+<!-- EXPLORE SECTION -->
+<section id="features" class="py-5">
+
+    <h2 class="fw-bold mb-4">Explore the Vault</h2>
+
+    <div class="row g-4">
+
+        <!-- MATCHES -->
+        <div class="col-md-4">
+            <div class="card bg-dark text-white h-100">
+                <div class="card-body p-4">
+
+                    <h3 class="fw-bold">Matches</h3>
+
+                    <p class="text-secondary">
+                        Discover legendary matches,
+                        explore results and ratings.
+                    </p>
+
+                    <a asp-controller="Matches"
+                       asp-action="Index"
+                       class="btn btn-outline-danger">
+                        Browse Matches
+                    </a>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- WRESTLERS -->
+        <div class="col-md-4">
+            <div class="card bg-dark text-white h-100">
+                <div class="card-body p-4">
+
+                    <h3 class="fw-bold">Wrestlers</h3>
+
+                    <p class="text-secondary">
+                        Explore professional wrestlers,
+                        their careers and biographies.
+                    </p>
+
+                    <a asp-controller="Wrestlers"
+                       asp-action="Index"
+                       class="btn btn-outline-danger">
+                        Explore Wrestlers
+                    </a>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- EVENTS -->
+        <div class="col-md-4">
+            <div class="card bg-dark text-white h-100">
+                <div class="card-body p-4">
+
+                    <h3 class="fw-bold">Events</h3>
+
+                    <p class="text-secondary">
+                        Browse wrestling events,
+                        promotions and match cards.
+                    </p>
+
+                    <a asp-controller="Events"
+                       asp-action="Index"
+                       class="btn btn-outline-danger">
+                        View Events
+                    </a>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- STATISTICS SECTION -->
+<section class="py-5">
+
+    <h2 class="fw-bold mb-4">
+        MatchVault Statistics
+    </h2>
+
+    <div class="row g-4">
+
+        <!-- TOTAL MATCHES -->
+        <div class="col-md-4">
+            <div class="card bg-dark text-white text-center h-100">
+                <div class="card-body p-4">
+
+                    <h2 class="display-4 fw-bold text-danger">
+                        @ViewBag.TotalMatches
+                    </h2>
+
+                    <h4 class="fw-bold">
+                        Wrestling Matches
+                    </h4>
+
+                    <p class="text-secondary mb-0">
+                        Matches in the vault
+                    </p>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- TOTAL WRESTLERS -->
+        <div class="col-md-4">
+            <div class="card bg-dark text-white text-center h-100">
+                <div class="card-body p-4">
+
+                    <h2 class="display-4 fw-bold text-danger">
+                        @ViewBag.TotalWrestlers
+                    </h2>
+
+                    <h4 class="fw-bold">
+                        Wrestlers
+                    </h4>
+
+                    <p class="text-secondary mb-0">
+                        Wrestlers in the database
+                    </p>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- TOTAL EVENTS -->
+        <div class="col-md-4">
+            <div class="card bg-dark text-white text-center h-100">
+                <div class="card-body p-4">
+
+                    <h2 class="display-4 fw-bold text-danger">
+                        @ViewBag.TotalEvents
+                    </h2>
+
+                    <h4 class="fw-bold">
+                        Wrestling Events
+                    </h4>
+
+                    <p class="text-secondary mb-0">
+                        Events in the collection
+                    </p>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- BUILD YOUR COLLECTION -->
+<section class="py-5">
+
+    <h2 class="fw-bold mb-4">
+        Build Your Collection
+    </h2>
+
+    <p class="text-secondary mb-4">
+        Expand MatchVault by adding your favorite
+        wrestling matches, wrestlers and events.
+    </p>
+
+    <div class="d-flex flex-wrap gap-3">
+
+        <a asp-controller="Matches"
+           asp-action="Create"
+           class="btn btn-danger">
+            + Add Match
+        </a>
+
+        <a asp-controller="Wrestlers"
+           asp-action="Create"
+           class="btn btn-outline-danger">
+            + Add Wrestler
+        </a>
+
+        <a asp-controller="Events"
+           asp-action="Create"
+           class="btn btn-outline-danger">
+            + Add Event
+        </a>
+
+    </div>
+
+</section>

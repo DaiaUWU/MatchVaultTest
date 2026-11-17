@@ -1,0 +1,98 @@
+
+@model IEnumerable<MatchVault.Models.Wrestler>
+
+@{
+    ViewData["Title"] = "Wrestlers";
+}
+
+<div class="container py-5">
+
+    <div class="d-flex justify-content-between align-items-center mb-5">
+        <div>
+            <h1 class="fw-bold text-white">Wrestlers</h1>
+            <p class="text-secondary">
+                Explore professional wrestlers from around the world.
+            </p>
+        </div>
+
+        <a asp-controller="Wrestlers"
+           asp-action="Create"
+           class="btn btn-danger">
+            + Add Wrestler
+        </a>
+    </div>
+
+    @if (!Model.Any())
+    {
+        <div class="text-center py-5">
+            <h3 class="text-white">No wrestlers yet</h3>
+            <p class="text-secondary">
+                Start building your wrestling roster.
+            </p>
+        </div>
+    }
+    else
+    {
+        <div class="row g-4">
+            @foreach (var wrestler in Model)
+            {
+                <div class="col-md-6 col-lg-4">
+                    <div class="card bg-dark text-white border-secondary h-100 shadow overflow-hidden">
+
+                        <div class="bg-black position-relative"
+                             style="height: 280px;">
+
+                            <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center text-secondary"
+                                 style="background: linear-gradient(135deg, #202025, #101014);">
+                                <span style="font-size: 65px;">★</span>
+                            </div>
+
+                            @if (!string.IsNullOrWhiteSpace(wrestler.ImageUrl))
+                            {
+                                <img src="@wrestler.ImageUrl"
+                                     alt="@wrestler.Name"
+                                     loading="lazy"
+                                     onerror="this.style.display='none'"
+                                     class="position-relative w-100 h-100"
+                                     style="object-fit: cover;" />
+                            }
+                        </div>
+
+                        <div class="card-body p-4 d-flex flex-column">
+
+                            <h4 class="fw-bold mb-2">
+                                @wrestler.Name
+                            </h4>
+
+                            @if (!string.IsNullOrWhiteSpace(wrestler.Promotion))
+                            {
+                                <p class="text-danger fw-bold mb-3">
+                                    @wrestler.Promotion
+                                </p>
+                            }
+
+                            @if (!string.IsNullOrWhiteSpace(wrestler.Country))
+                            {
+                                <p class="text-secondary mb-4">
+                                    <strong>Country:</strong>
+                                    @wrestler.Country
+                                </p>
+                            }
+
+                            <div class="mt-auto">
+                                <a asp-controller="Wrestlers"
+                                   asp-action="Details"
+                                   asp-route-id="@wrestler.Id"
+                                   class="btn btn-outline-danger w-100">
+                                    View Wrestler
+                                </a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+
+</div>

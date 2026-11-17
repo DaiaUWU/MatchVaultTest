@@ -1,0 +1,179 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0" />
+
+    <title>@ViewData["Title"] - MatchVault</title>
+
+    <script type="importmap"></script>
+
+    <link rel="stylesheet"
+          href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+
+    <link rel="stylesheet"
+          href="~/css/site.css"
+          asp-append-version="true" />
+
+    <link rel="stylesheet"
+          href="~/MatchVault.styles.css"
+          asp-append-version="true" />
+
+    <style>
+        .matchvault-navbar {
+            background-color: #161922;
+            border-bottom: 1px solid #303541;
+            padding: 14px 0;
+        }
+
+        .matchvault-brand {
+            color: #ffffff !important;
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .matchvault-brand span {
+            color: #ef3340;
+        }
+
+        .matchvault-navbar .nav-link {
+            color: #b7bdca !important;
+            font-weight: 500;
+            margin-left: 14px;
+            transition: color 0.2s ease;
+        }
+
+        .matchvault-navbar .nav-link:hover {
+            color: #ef3340 !important;
+        }
+
+        .matchvault-navbar .nav-link.active {
+            color: #ef3340 !important;
+            font-weight: 700;
+        }
+
+        .matchvault-footer {
+            background-color: #161922;
+            border-top: 1px solid #303541;
+            color: #9ca3b5;
+            padding: 20px 0;
+            margin-top: 60px;
+        }
+
+        .matchvault-footer a {
+            color: #ef3340;
+            text-decoration: none;
+        }
+
+        .matchvault-footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+
+@{
+    var currentController =
+        ViewContext.RouteData.Values["controller"]?.ToString();
+}
+
+<header>
+    <nav class="navbar navbar-expand-lg navbar-dark matchvault-navbar">
+        <div class="container">
+
+            <a class="navbar-brand matchvault-brand"
+               asp-controller="Home"
+               asp-action="Index">
+                Match<span>Vault</span>
+            </a>
+
+            <button class="navbar-toggler"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#matchvaultMenu"
+                    aria-controls="matchvaultMenu"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation">
+
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse"
+                 id="matchvaultMenu">
+
+                <ul class="navbar-nav ms-auto">
+
+                    <li class="nav-item">
+                        <a class="nav-link @(currentController == "Home" ? "active" : "")"
+                           asp-controller="Home"
+                           asp-action="Index">
+                            Home
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link @(currentController == "Events" ? "active" : "")"
+                           asp-controller="Events"
+                           asp-action="Index">
+                            Events
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link @(currentController == "Matches" ? "active" : "")"
+                           asp-controller="Matches"
+                           asp-action="Index">
+                            Matches
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link @(currentController == "Wrestlers" ? "active" : "")"
+                           asp-controller="Wrestlers"
+                           asp-action="Index">
+                            Wrestlers
+                        </a>
+                    </li>
+
+                </ul>
+
+            </div>
+        </div>
+    </nav>
+</header>
+
+<div class="container">
+    <main role="main" class="pb-3">
+        @RenderBody()
+    </main>
+</div>
+
+<footer class="matchvault-footer">
+    <div class="container d-flex justify-content-between flex-wrap gap-2">
+
+        <span>
+            &copy; @DateTime.Now.Year - MatchVault
+        </span>
+
+        <a asp-controller="Home"
+           asp-action="Privacy">
+            Privacy Policy
+        </a>
+
+    </div>
+</footer>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+<script src="~/js/site.js" asp-append-version="true"></script>
+
+@await RenderSectionAsync("Scripts", required: false)
+
+</body>
+</html>

@@ -1,0 +1,116 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
+  color: var(--bs-secondary-color);
+  text-align: end;
+}
+
+.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
+  text-align: start;
+}
+
+
+/* MATCHVAULT DARK THEME */
+
+body {
+    background-color: #0d0f14;
+    color: #f5f5f5;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.navbar {
+    background-color: #151820 !important;
+    border-bottom: 1px solid #292d38 !important;
+}
+
+.navbar-brand,
+.navbar .nav-link {
+    color: #f5f5f5 !important;
+}
+
+.navbar-brand {
+    font-weight: 800;
+    letter-spacing: 0.5px;
+}
+
+.navbar .nav-link:hover {
+    color: #e63946 !important;
+}
+
+h1, h2, h3 {
+    color: #ffffff;
+}
+
+.text-danger {
+    color: #e63946 !important;
+}
+
+.text-secondary {
+    color: #a0a5b2 !important;
+}
+
+.btn-danger {
+    background-color: #e63946;
+    border-color: #e63946;
+    border-radius: 10px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+.btn-danger:hover {
+    background-color: #ff4d5a;
+    border-color: #ff4d5a;
+    transform: translateY(-2px);
+}
+
+.card.bg-dark {
+    background-color: #191d27 !important;
+    border: 1px solid #303544;
+    border-radius: 14px;
+    transition: all 0.25s ease;
+}
+
+.card.bg-dark:hover {
+    border-color: #e63946;
+    transform: translateY(-5px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+}
+
+.card h3 {
+    font-weight: 700;
+}
+
+.card p {
+    color: #b3b7c2;
+}
+
+footer {
+    background-color: #151820;
+    color: #a0a5b2 !important;
+    border-top: 1px solid #292d38 !important;
+}
+
+footer a {
+    color: #e63946;
+}
